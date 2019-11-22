@@ -4,9 +4,11 @@
       <div class="timeCost">答题时间：<span>{{totalTime}}</span>s</div>
       <div class="item_container_style">
         <div class="item_list_container" v-if="itemDetail.length > 0">	
-          <header class="item_title">{{itemDetail[itemNum-1].topic_name}}</header>
+          <header class="item_title">
+            <p v-html="itemDetail[itemNum-1].topic_name"></p>
+          </header>
         	<ul>
-        		<li v-for="(item,index) in itemDetail[itemNum-1].topic_answer" @click="choosed(index,item.topic_answer_id)" class="item_list" >
+        		<li v-for="(item,index) in itemDetail[itemNum-1].topic_answer" @click="choosed(index,item.is_standard_answer)" class="item_list" >
           		<span  :class="{'hasChoosed':choosedNum==index}">{{options(index)}}</span>
           		<span>{{item.answer_name}}</span>
         		</li>
@@ -57,10 +59,14 @@ export default {
   	//点击下一题
   	nextQuestion(){
   		if (this.choosedNum!==null) {
-  			this.choosedNum=null;
+        this.choosedNum=null;
+        console.log(this.choosedId)
   			this.addNum(this.choosedId);
-  		}
-  		else {alert("你还没选哦！")}
+  		} else {
+        this.choosedNum=null;
+  			this.addNum(3);
+      }
+  		// else {alert("你还没选哦！")}
   	},
   	//点击提交答案
   	submitAnswer(){
@@ -69,8 +75,13 @@ export default {
   			this.addNum(this.choosedId);
   			this.$router.push('score');
   			clearInterval(this.timer);
-  		}
-  		else{alert("您还没选哦！")}
+  		}else {
+        this.choosedNum=null;
+  			this.addNum(this.choosedId);
+  			this.$router.push('score');
+  			clearInterval(this.timer);
+      }
+  		// else{alert("您还没选哦！")}
   	},
   },
   created(){
@@ -83,7 +94,7 @@ export default {
 
 <style scoped>
 .item{
-  background: url('../../assets/xiaoxin03.jpg') no-repeat;
+  /* background: url('../../assets/xiaoxin03.jpg') no-repeat; */
   background-size: 100% 6.67rem ;
   height: 6.67rem;
   width: 100%;
@@ -106,7 +117,7 @@ export default {
     width: 0.78rem;
     top: -0.4rem;
     right: 0.25rem;
-    background: url(../../assets/WechatIMG2.png) no-repeat;
+    /* background: url(../../assets/WechatIMG2.png) no-repeat; */
     background-size: 100% 100%;
     z-index: 10;
 }
@@ -162,7 +173,7 @@ export default {
       background-size: 100% 100%;
       position: absolute;
       top: 3.1rem;
-      left: 11%;
+      right: 0.25rem;
       background-repeat: no-repeat;
       text-align: center;
 }
@@ -179,7 +190,8 @@ export default {
       background-size: 100% 100%;
       position: absolute;
       top: 3.1rem;
-      left: 11%;
+      /* left: 11%; */
+      right: 0.25rem;
       background-repeat: no-repeat;
       text-align: center;
 }

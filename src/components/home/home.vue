@@ -27,7 +27,7 @@ export default {
 <style scoped>
 .home{
   height: 6.67rem;
-  background: url('../../assets/xiaoxin12.jpg') no-repeat;
+  /* background: url('../../assets/xiaoxin12.jpg') no-repeat; */
   background-size: 100% 100%;
   width: 100%;
 }
